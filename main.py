@@ -13,7 +13,8 @@ class Article:
 
     def generate_summary(self):
         summarizer = pipeline("summarization")
-        summary = summarizer(self.text, max_length=120, min_length=30, do_sample=False)[0]["summary_text"]
+        summary = summarizer(self.text, max_length=120,
+                             min_length=30, do_sample=False)[0]["summary_text"]
         self.summary = summary
 
     def analyze_sentiment(self):
@@ -99,7 +100,8 @@ class NewsAggregator:
         # Get user preferences for news categories
         categories = {}
         for category in self.user_preferences:
-            preference = input(f"Please rate your interest in {category} (0-1): ")
+            preference = input(
+                f"Please rate your interest in {category} (0-1): ")
             categories[category] = float(preference)
         return categories
 
