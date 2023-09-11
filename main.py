@@ -66,16 +66,14 @@ class NewsAggregator:
         return "Sample article text"
 
     def personalize_news(self):
-        for category in self.news_categories:
-            new_articles = []
-            for article in self.news_categories[category]:
-                if self.is_article_relevant(article.category):
-                    new_articles.append(article)
+        for category, articles in self.news_categories.items():
+            new_articles = [
+                article for article in articles if self.is_article_relevant(article.category)]
             self.news_categories[category] = new_articles
 
     def is_article_relevant(self, category):
         # Check if the article is relevant to the user's preferences
-        return self.user_preferences[category] >= 0.5
+        return self.user_preferences.get(category, 0) >= 0.5
 
     def update_news(self):
         for source in self.news_sources:
